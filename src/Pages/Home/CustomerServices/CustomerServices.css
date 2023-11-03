@@ -1,0 +1,21 @@
+.handle {
+  color: #2d2d2d;
+  font-family: Poppins;
+  font-style: normal;
+  line-height: 43px; /* 126.471% */
+  letter-spacing: 0.396px;
+}
+.professional {
+  color: #f63e7b;
+  font-family: Poppins;
+  font-style: normal;
+  line-height: 43px;
+  letter-spacing: 0.396px;
+}
+.counter {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.08px;
+}

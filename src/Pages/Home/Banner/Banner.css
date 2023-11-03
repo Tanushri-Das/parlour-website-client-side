@@ -1,0 +1,15 @@
+.banner-text {
+  font-family: Poppins;
+  font-style: normal;
+  line-height: 60px;
+  letter-spacing: 0.48px;
+}
+
+.banner-desc {
+  color: #666;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.08px;
+}

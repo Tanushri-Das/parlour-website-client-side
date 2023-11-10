@@ -11,10 +11,11 @@ import {
 import "./Login.css";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth(); 
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();

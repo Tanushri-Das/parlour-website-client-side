@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
+
+const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 const AddReview = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   console.log(user.displayName);
+  const [axiosSecure] = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -13,36 +17,47 @@ const AddReview = () => {
     reset,
   } = useForm();
 
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+
   const onSubmit = (data) => {
-    const { name, designation,rateus, review } = data;
-    const newReview = {
-      name,
-      designation,
-      rateus,
-      review,
-    };
-    console.log(newReview);
-    fetch("http://localhost:5000/reviews", {
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    fetch(img_hosting_url, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newReview),
+      body: formData,
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          reset();
-          Swal.fire({
-            title: "Good job!",
-            text: "Booking add Successfully!",
-            icon: "success",
-            timer: 1500, // Timer in milliseconds (1.5 seconds in this case)
+      .then((imgResponse) => {
+        console.log(imgResponse);
+        if (imgResponse.success) {
+          const imgURL = imgResponse.data.display_url;
+          const { name, designation,rateus, review } = data;
+          const newReview = {
+            name,
+            designation,
+            rateus,
+            review,
+            image: imgURL,
+          };
+          console.log(newReview);
+          axiosSecure.post("/reviews", newReview)
+          .then((data) => {
+            console.log("after posting new review", data.data);
+            reset();
+            if (data.data.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Review added successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
           });
-            navigate("/");
         }
       });
   };
+  console.log("img_hosting_token", img_hosting_token);
   return (
     <div className="my-12">
       <h5 className="rate-text text-center mb-6">Give Review</h5>
@@ -74,6 +89,16 @@ const AddReview = () => {
             className="form-input w-full text-[16px] font-medium mt-1"
           />
         </div>
+        <div className="mb-6">
+          <label className="block text-black text-lg font-semibold mb-1">
+            Image *
+          </label>
+          <input
+            type="file"
+            className="text-base"
+            {...register("image", { required: true })}
+          />
+        </div>
         <div className="form-control w-full mb-3">
           <label className="label">
             <span className="label-text text-lg">Rate Us</span>
@@ -97,7 +122,7 @@ const AddReview = () => {
             <span className="label-text text-lg">Description</span>
           </label>
           <textarea
-            className="form-input w-full text-[16px] font-medium mt-1 h-40"
+            className="form-input w-full text-[16px] font-medium mt-1 h-24"
             placeholder="Review in detail"
             {...register("review", { required: true })}
           ></textarea>

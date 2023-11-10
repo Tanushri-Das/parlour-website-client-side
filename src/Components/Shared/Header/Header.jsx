@@ -32,30 +32,22 @@ const Header = () => {
                 <a href="/" className="text-sm font-semibold navtext pe-[40px]">
                   Home
                 </a>
-                <a href="/" className="text-sm font-semibold navtext pe-[40px]">
-                  Our Portfolio
-                </a>
-                <a href="/" className="text-sm font-semibold navtext pe-[40px]">
-                  Our Team
-                </a>
                 <a
                   href="/dashboard"
                   className="text-sm font-semibold navtext pe-[40px]"
                 >
                   Dashboard
                 </a>
-                <a href="/" className="text-sm font-semibold navtext pe-[40px]">
-                  Contact Us
-                </a>
+
                 {user ? (
                   <>
-                    <li className="flex justify-center items-center text-[16px] font-semibold pe-3">
+                    <li className="flex justify-center items-center text-sm font-semibold pe-[40px]">
                       {user?.displayName}
                     </li>
                     <li className="flex justify-center">
                       <button
                         onClick={handleLogout}
-                        className="login-btn text-[16px] font-semibold text-white"
+                        className="login-btn text-sm font-semibold text-white"
                       >
                         Logout
                       </button>
@@ -126,26 +118,42 @@ const Header = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden" id="mobile-menu">
-          <div className="px-4 pt-4 pb-3 space-y-1 sm:px-3">
-            <a href="/" className="text-sm font-semibold navtext block">
+          <div className="px-4 pt-8 pb-3 space-y-1 sm:px-3">
+            <a href="/" className="text-sm font-semibold navtext block mb-5">
               Home
             </a>
-            <a href="/" className="text-sm font-semibold navtext block">
-              Our Portfolio
-            </a>
-            <a href="/" className="text-sm font-semibold navtext block">
-              Our Team
-            </a>
-            <a href="/" className="text-sm font-semibold navtext block pb-4">
-              Contact Us
-            </a>
-
-            <Link
-              className="login-btn text-[16px] font-semibold text-white"
-              to="/login"
+            <a
+              href="/dashboard"
+              className="text-sm font-semibold navtext block mb-5"
             >
-              Login
-            </Link>
+              Dashboard
+            </a>
+            {user ? (
+              <div className="">
+                <li className="list-none text-sm font-semibold navtext block mt-5">
+                  {user?.displayName}
+                </li>
+                <li className="list-none">
+                  <button
+                    onClick={handleLogout}
+                    className="login-btn text-[16px] font-semibold text-white"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </div>
+            ) : (
+              <>
+                <li className="list-none pt-7">
+                  <Link
+                    className="login-btn text-[16px] font-semibold text-white"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
+                </li>
+              </>
+            )}
           </div>
         </div>
       )}

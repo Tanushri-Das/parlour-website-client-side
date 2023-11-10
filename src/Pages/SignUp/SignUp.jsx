@@ -7,9 +7,10 @@ import "./SignUp.css";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
+import useAuth from "../../Hooks/useAuth";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useAuth(); 
   const {
     register,
     handleSubmit,

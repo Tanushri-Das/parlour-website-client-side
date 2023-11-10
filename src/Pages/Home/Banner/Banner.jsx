@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div className="lg:ml-[135px] lg:me-[217px] border border-red-500 md:flex justify-around items-center pb-9">
+    <div className="lg:mx-[135px] border border-red-500 grid md:grid-cols-2 gap-8 items-center pb-9 pt-12 xl:pt-0 px-4 sm:px-6 lg:px-8">
       <div className="border border-red-500">
         <h1 className="text-5xl font-bold text-[#111430]">
-          BEAUTY SALON <br /> FOR EVERY WOMEN
+          BEAUTY SALON FOR EVERY WOMEN
         </h1>
         <p className="mt-6 mb-7 text-[16px] banner-desc">
-          Your destination for beauty and wellness . Discover the <br /> ultimate{" "} 
-           beauty experience at our salon . Experience the <br /> difference
+          Your destination for beauty and wellness . Discover the ultimate{" "} 
+           beauty experience at our salon . Experience the difference
           today.
         </p>
         <Link

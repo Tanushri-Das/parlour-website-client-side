@@ -3,9 +3,10 @@ import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const SocialLogin = () => {
-  const { googleSignIn } = useContext(AuthContext);
+  const { googleSignIn } = useAuth(); 
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";

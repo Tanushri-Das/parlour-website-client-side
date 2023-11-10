@@ -9,6 +9,12 @@ import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import BookingsList from "../../Pages/Dashboard/BookingsList/BookingsList";
 import AddReview from "../../Pages/Dashboard/AddReview/AddReview";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
+import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
+import MakeAdmin from "../../Pages/Dashboard/MakeAdmin/MakeAdmin";
+import AddService from "../../Pages/Dashboard/AddService/AddService";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import ManageServices from "../../Pages/Dashboard/ManageServices/ManageServices";
+import OrderList from "../../Pages/Dashboard/OrderList/OrderList";
 
 const routes=createBrowserRouter([
     {
@@ -45,9 +51,36 @@ const routes=createBrowserRouter([
                 path:'/dashboard/review',
                 element:<AddReview/>
             },
+            // {
+            //     path:'/dashboard/payment',
+            //     element:<Payment/>
+            // },
             {
-                path:'/dashboard/payment',
-                element:<Payment/>
+                path:'/dashboard/payment/:id',
+                element:<Payment></Payment>,
+                loader:({params})=>fetch(`http://localhost:5000/bookings/${params.id}`)
+               
+            },
+            
+            {
+                path:'/dashboard/orderList',
+                element:<AdminRoute><OrderList/></AdminRoute>
+            },
+            {
+                path:'/dashboard/allusers',
+                element:<AdminRoute><AllUsers/></AdminRoute>
+            },
+            {
+                path:'/dashboard/makeAdmin',
+                element:<AdminRoute><MakeAdmin/></AdminRoute>
+            },
+            {
+                path:'/dashboard/addService',
+                element:<AdminRoute><AddService/></AdminRoute>
+            },
+            {
+                path:'/dashboard/manageServices',
+                element:<AdminRoute><ManageServices/></AdminRoute>
             },
             
         ]

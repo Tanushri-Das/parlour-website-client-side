@@ -5,14 +5,19 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import "./Testimonials.css";
 import { FaStar, FaStarHalf } from "react-icons/fa";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const Testimonials = () => {
-  const [reviews, setReviews] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/reviews")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
-  }, []);
+  const [axiosSecure] = useAxiosSecure();
+  const { data: reviews = [] } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/reviews");
+      return res.data;
+    },
+  });
+
   const [swiperSlidesPerView, setSwiperSlidesPerView] = useState(1);
 
   useEffect(() => {
@@ -29,22 +34,20 @@ const Testimonials = () => {
         setSwiperSlidesPerView(1);
       }
     };
-  
+
     // Initial call
     handleResize();
-  
+
     // Add event listener to handle screen size changes
     window.addEventListener("resize", handleResize);
-  
+
     // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
 
   return (
-    // className="border border-red-500"
     <div className="mt-[75px] mb-[98px] lg:mx-[135px]">
       <Swiper
         slidesPerView={swiperSlidesPerView}
@@ -57,16 +60,32 @@ const Testimonials = () => {
           clickable: true,
         }}
         modules={[Autoplay, Pagination]}
-        className="mySwiper mt-10"
+        className="mySwiper mt-10 h-96"
       >
         {reviews.map((review, index) => (
-          <SwiperSlide key={index}>
-            <div className="flex flex-col border border-red-500 pl-5 pt-[33px] pb-[40px] rounded">
-              <h1 className="text-xl font-semibold text-left">{review.name}</h1>
-              <h3 className="text-[16px] font-medium mb-4">
-                {review.designation}
-              </h3>
-              <p className="text-[16px] review mb-4">{review.review}</p>
+          <SwiperSlide key={index} style={{ height: "100%" }}>
+            {/* Set a fixed height for each slide */}
+            <div className="flex flex-col border border-gray-200 rounded-xl pl-5 pt-[33px] pb-[40px] h-full">
+              <div className="flex items-center">
+                <div>
+                  {" "}
+                  <img
+                    src={review.image}
+                    alt=""
+                    className="w-20 h-20 rounded-full"
+                  />
+                </div>
+                <div className="ms-[18px]">
+                  <h1 className="text-xl font-semibold text-left">
+                    {review.name}
+                  </h1>
+                  <h3 className="text-[16px] font-medium mb-4">
+                    {review.designation}
+                  </h3>
+                </div>
+              </div>
+
+              <p className="text-[16px] review my-4">{review.review}</p>
               <div className="mb-6 flex justify-between items-center">
                 <div className="flex justify-center items-center">
                   {Array.from(

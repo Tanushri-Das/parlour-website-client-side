@@ -1,11 +1,9 @@
 import React from "react";
 import "./Services.css";
 import ServiceCard from "./ServiceCard";
-import { Link } from "react-router-dom";
 import useServices from "../../../Hooks/useServices";
 
 const Services = () => {
-
   const { services } = useServices();
 
   return (
@@ -18,7 +16,6 @@ const Services = () => {
           <ServiceCard key={service._id} service={service} />
         ))}
       </div>
-      
     </div>
   );
 };

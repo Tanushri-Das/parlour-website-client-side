@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div className="lg:mx-[135px] border border-red-500 grid md:grid-cols-2 gap-8 items-center pb-9 pt-12 xl:pt-0 px-4 sm:px-6 lg:px-8">
-      <div className="border border-red-500">
+    <div className="lg:mx-[135px] grid md:grid-cols-2 gap-8 items-center pb-9 pt-12 xl:pt-0 px-4 sm:px-6 lg:px-8">
+      <div className="">
         <h1 className="text-5xl font-bold text-[#111430]">
           BEAUTY SALON FOR EVERY WOMEN
         </h1>
@@ -22,7 +22,7 @@ const Banner = () => {
           Get an Appointment
         </Link>
       </div>
-      <div className="mt-12 border border-red-500 justify-start">
+      <div className="mt-12 justify-start">
         <img src={bannerImg} className="w-full " alt="" />
       </div>
     </div>

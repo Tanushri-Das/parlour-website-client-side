@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Shared/Header/Header";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -9,14 +9,14 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import "./Login.css";
-import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const { login } = useAuth(); 
+  const { login ,forgetPassword} = useAuth(); 
   const [showPassword, setShowPassword] = useState(false);
+  const [userEmail,setUserEmail]=useState('');
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -31,7 +31,8 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    login(email, password).then((result) => {
+    login(email, password)
+    .then((result) => {
       const user = result.user;
       console.log(user);
 
@@ -59,11 +60,35 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const handleEmailBlur=e=>{
+    const email=e.target.value;
+    setUserEmail(email)
+    console.log(email)
+  }
+  const handleForgetPassword=()=>{
+    if(!userEmail){
+      alert('Please enter your email address');
+      return;
+    }
+    forgetPassword(userEmail)
+    .then(()=>{
+      Swal.fire({
+        title: "Password reset email sent",
+        text: "Please check your email",
+        icon: "success",
+        timer: 1500, 
+        showConfirmButton: false, 
+      });
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+  }
   return (
     <div>
       <Header />
       <div className="flex justify-center items-center my-16">
-        <div className="w-full flex-shrink-0 lg:max-w-lg bg-base-100 mx-auto">
+        <div className="w-full flex-shrink-0 sm:max-w-lg bg-white mx-auto">
           <form onSubmit={handleLogin} className="form p-6 bg-white rounded-xl">
             <h1 className="text-black text-center text-3xl mb-6 font-bold">
               Login
@@ -72,7 +97,7 @@ const Login = () => {
               <label className="block text-black text-[16px] font-semibold mb-1">
                 Email
               </label>
-              <input
+              <input onBlur={handleEmailBlur}
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -85,7 +110,7 @@ const Login = () => {
                   Password
                 </label>
                 <label className="block text-black text-[16px] font-semibold">
-                  <a href="#" className="text-primary link link-hover">
+                  <a href="#" onClick={handleForgetPassword} className="text-primary link link-hover">
                     Forgot password?
                   </a>
                 </label>

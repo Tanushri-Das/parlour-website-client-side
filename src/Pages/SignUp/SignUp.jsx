@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, {useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../Components/Shared/Header/Header";
 import "./SignUp.css";
-import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import useAuth from "../../Hooks/useAuth";
@@ -39,14 +38,15 @@ const SignUp = () => {
     setPasswordsMatch(true);
 
     console.log(data);
-    createUser(data.email, data.password).then((result) => {
+    createUser(data.email, data.password)
+    .then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
       updateUserProfile(data.name)
         .then(() => {
           // console.log("user profile info updated");
           const saveUser = { name: data.name, email: data.email };
-          fetch("http://localhost:5000/users",{
+          fetch("https://parlour-website-server-side.vercel.app/users",{
             method:"POST",
             headers: {
               "content-type": "application/json",
@@ -77,7 +77,7 @@ const SignUp = () => {
     <div>
       <Header />
       <div className="flex justify-center items-center my-16">
-        <div className="w-full flex-shrink-0 lg:max-w-lg bg-base-100 mx-auto">
+        <div className="w-full flex-shrink-0 sm:max-w-lg bg-base-100 mx-auto">
           <form
             className="form p-6 bg-white rounded-xl"
             onSubmit={handleSubmit(onSubmit)}

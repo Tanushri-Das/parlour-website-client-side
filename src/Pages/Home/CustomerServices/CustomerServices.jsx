@@ -6,12 +6,12 @@ import { FaPlus } from "react-icons/fa";
 
 const CustomerServices = () => {
   return (
-    <div className="bg-[#FFF8F5] border border-red-500">
-      <div className="lg:mx-[135px] border border-red-500 pt-[127px] pb-[152px] md:grid md:grid-cols-2 gap-8 items-center">
-        <div className="border border-red-500">
+    <div className="bg-[#FFF8F5]">
+      <div className="lg:mx-[135px] pt-[127px] pb-[152px] md:grid md:grid-cols-2 gap-8 items-center">
+        <div>
           <img src={facial} className="w-full" alt="" />
         </div>
-        <div className="mt-12 lg:mt-0 border border-red-500 px-4 lg:px-0">
+        <div className="mt-12 lg:mt-0 px-4 lg:px-0">
           <h2 className="handle text-[34px] font-semibold mb-8">
             Let us handle your screen{" "}
             <span className="professional">Professionally</span>.

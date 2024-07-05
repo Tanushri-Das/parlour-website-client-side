@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 
 const SocialLogin = () => {
-  const { googleSignIn } = useAuth(); 
+  const { googleSignIn } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -19,7 +19,7 @@ const SocialLogin = () => {
         name: loggedInUser.displayName,
         email: loggedInUser.email,
       };
-      fetch("http://localhost:5000/users", {
+      fetch("https://parlour-website-server-side.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -40,20 +40,18 @@ const SocialLogin = () => {
         });
     });
   };
-  
+
   return (
-    <div>
-      <div className="flex justify-center items-center">
-        <button
-          onClick={handleGoogleSignIn}
-          className="google-btn flex items-center py-4"
-        >
-          <FaGoogle className="ms-[7px]" />
-          <p className="ms-[111px] text-[16px] font-semibold">
-            Continue with Google
-          </p>
-        </button>
-      </div>
+    <div className="flex justify-center items-center google-btn-div">
+      <button
+        onClick={handleGoogleSignIn}
+        className="google-btn flex items-center py-4"
+      >
+        <FaGoogle className="ms-[7px] text-white" />
+        <p className="ms-[111px] text-white text-[16px] font-semibold">
+          Continue with Google
+        </p>
+      </button>
     </div>
   );
 };

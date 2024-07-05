@@ -18,14 +18,14 @@
   line-height: 24px;
   text-align: center; /* Center text vertically */
 }
-.validate-btn{
-    border-radius: 5px;
-    border: 1px solid #f63e7b;
-    padding: 10px 47px;
-    color:#f63e7b;
-    font-style: normal;
-    line-height: 24px;
-    text-align: center; /* Center text vertically */
+.validate-btn {
+  border-radius: 5px;
+  border: 1px solid #f63e7b;
+  padding: 10px 47px;
+  color: #f63e7b;
+  font-style: normal;
+  line-height: 24px;
+  text-align: center; /* Center text vertically */
 }
 .form {
   border-radius: 4px;
@@ -47,6 +47,13 @@
   height: 51px;
   flex-shrink: 0;
   border-radius: 57px;
-  border: 1px solid #c7c7c7;
-  background: #fff;
+  background: #f63e7b;
+}
+@media (max-width: 480px) {
+  .google-btn {
+    width: 100%;
+  }
+  .google-btn-div {
+    padding: 0 10px;
+  }
 }

@@ -14,6 +14,7 @@ const Testimonials = () => {
     queryKey: ["reviews"],
     queryFn: async () => {
       const res = await axiosSecure.get("/reviews");
+      console.log(res)
       return res.data;
     },
   });

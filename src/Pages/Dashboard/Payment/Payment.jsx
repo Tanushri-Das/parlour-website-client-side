@@ -26,16 +26,6 @@
 
 // export default Payment;
 
-
-
-
-
-
-
-
-
-
-
 import React from "react";
 import { useLoaderData, useLocation } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
@@ -53,12 +43,16 @@ const Payment = () => {
   console.log("book", booking);
 
   return (
-    <div>
-      <h2 className="text-3xl font-medium mb-16 text-center">PAYMENT</h2>
-      <p className="mb-6">Service Price: ${price ? parseFloat(price).toFixed(2) : 0}</p>
-      <p className="mb-6">Service Name: {name}</p>
+    <div className="mt-16">
+      <h2 className="text-3xl font-medium mb-10 text-center">Payment</h2>
+      <div className="text-center">
+        <p className="mb-5 text-xl">
+          Service Price: ${price ? parseFloat(price).toFixed(2) : 0}
+        </p>
+        <p className="mb-20 text-xl">Service Name: {name}</p>
+      </div>
       <Elements stripe={stripePromise}>
-        <CheckoutForm price={price} name={name} booking={booking}/>
+        <CheckoutForm price={price} name={name} booking={booking} />
       </Elements>
     </div>
   );

@@ -15,6 +15,7 @@ const AllUsers = () => {
   });
 
   const handleDelete = (user) => {
+    console.log(user._id);
     Swal.fire({
       title: "Are you want to delete this user?",
       text: "You won't be able to revert this!",
@@ -25,16 +26,20 @@ const AllUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/users/${user._id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount > 0) {
-              refetch();
-              Swal.fire("Deleted!", "User has been deleted.", "success");
-            }
-          });
+        axiosSecure.delete(`/users/${user._id}`).then((data) => {
+          console.log("after posting new review", data.data);
+
+          if (data.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success",
+              timer: 3000, // Time in milliseconds (e.g., 3000ms = 3 seconds)
+              showConfirmButton: false, // Hide the "OK" button
+            });
+          }
+        });
       }
     });
   };
@@ -69,6 +74,12 @@ const AllUsers = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xl font-medium"
               >
+                Role
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xl font-medium"
+              >
                 Action
               </th>
             </tr>
@@ -77,9 +88,23 @@ const AllUsers = () => {
             {Array.isArray(users) &&
               users.map((user, index) => (
                 <tr key={user._id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">{index + 1}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">{user.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">{user.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
+                    {index + 1}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
+                    {user.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
+                    {user.email}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {user.role ? (
+                      "Admin"
+                    ) : (
+                      "User"
+                    )}
+                   
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
                     <button
                       onClick={() => handleDelete(user)}

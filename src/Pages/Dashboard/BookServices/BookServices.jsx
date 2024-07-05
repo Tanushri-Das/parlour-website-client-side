@@ -34,15 +34,13 @@ const BookServices = () => {
 
   const onSubmit = (data) => {
     const { name, email, service } = data;
-    const selectedServiceObj = services.find(
-      (s) => s.service_name === service
-    );
-  
+    const selectedServiceObj = services.find((s) => s.service_name === service);
+
     if (!selectedServiceObj) {
       // Handle the case when the selected service is not found
       return;
     }
-  
+
     const newBooking = {
       name,
       email,
@@ -51,7 +49,7 @@ const BookServices = () => {
       serviceId: selectedServiceObj._id, // Set the serviceId to the _id of the selected service
     };
     console.log(newBooking);
-  
+
     // Reset the selectedServicePrice to $0 after form submission
     setSelectedServicePrice(0);
     axiosSecure.post("/bookings", newBooking).then(() => {
@@ -64,74 +62,77 @@ const BookServices = () => {
       });
     });
   };
-  
 
   return (
-    <div className="my-12">
-      <h5 className="rate-text text-center mb-6">Book Service</h5>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mt-16 p-10 w-1/2 form mx-auto"
-      >
-        <div className="form-control w-full mb-3">
-          <label className="label">
-            <span className="label-text text-lg">Username</span>
-          </label>
-          <input
-            type="text"
-            {...register("name", { required: true })}
-            value={user.displayName}
-            className="form-input w-full text-[16px] font-medium mt-1"
-          />
-        </div>
-        <div className="form-control w-full mb-3">
-          <label className="label">
-            <span className="label-text text-lg">User Email</span>
-          </label>
-          <input
-            type="text"
-            {...register("email", { required: true })}
-            value={user.email}
-            className="form-input w-full text-[16px] font-medium mt-1"
-          />
-        </div>
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text text-lg">Services</span>
-          </label>
-          <select
-            className="form-input w-full text-[16px] font-medium mt-1"
-            {...register("service", { required: true })}
-            onChange={handleServiceChange}
-          >
-            <option value="">Select a service</option>
-            {services.map((service) => (
-              <option key={service._id} value={service.service_name}>
-                {service.service_name}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div>
+      <div className="font-bold uppercase flex justify-center mt-16 items-center">
+        <h3 className="text-3xl">Book Service</h3>
+      </div>
+      <div className="w-full flex-shrink-0 sm:max-w-lg bg-white mx-auto mt-10">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="p-6 form bg-white rounded-xl"
+        >
+          <div className="mb-3">
+            <label className="block text-black text-lg font-semibold mb-1">
+              Username
+            </label>
+            <input
+              type="text"
+              {...register("name", { required: true })}
+              value={user.displayName}
+              className="form-input font-normal"
+            />
+          </div>
+          <div className="form-control w-full mb-3">
+            <label className="block text-black text-lg font-semibold mb-1">
+              User Email
+            </label>
+            <input
+              type="text"
+              {...register("email", { required: true })}
+              value={user.email}
+              className="form-input font-normal"
+            />
+          </div>
+          <div className="form-control w-full mb-3">
+            <label className="block text-black text-lg font-semibold mb-1">
+              Services
+            </label>
+            <select
+              className="form-input font-normal"
+              {...register("service", { required: true })}
+              onChange={handleServiceChange}
+            >
+              <option value="">Select a service</option>
+              {services.map((service) => (
+                <option key={service._id} value={service.service_name}>
+                  {service.service_name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Input field to display the selected service price */}
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text text-lg">Service Price</span>
-          </label>
-          <input
-            type="text"
-            value={`$${selectedServicePrice}`}
-            readOnly
-            className="form-input w-full text-[16px] font-medium mt-1"
-          />
-        </div>
+          {/* Input field to display the selected service price */}
+          <div className="w-full">
+            <label className="block text-black text-lg font-semibold mb-1">
+              Service Price
+            </label>
+            <input
+              type="text"
+              value={`$${selectedServicePrice}`}
+              readOnly
+              className="form-input font-normal"
+            />
+          </div>
 
-        <div className="flex justify-center">
-          <button className="btn login-btn text-white font-bold mt-8 text-base">
-            Book Service
-          </button>
-        </div>
-      </form>
+          <div className="flex justify-center">
+            <button className="btn login-btn text-white font-bold mt-8 text-base">
+              Book Service
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

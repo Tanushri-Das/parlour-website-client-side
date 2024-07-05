@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import logo from "../../../images/parlourlogo.png";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 
 const Header = () => {
@@ -17,9 +17,8 @@ const Header = () => {
       .catch((error) => console.error(error));
   };
   return (
-    // pt-16
-    <nav className="pt-12">
-      <div className="max-w-7xl lg:mx-[135px] mx-auto px-4 sm:px-6 lg:px-8 border border-red-500">
+    <nav className="pt-8">
+      <div className="max-w-7xl lg:mx-[135px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
@@ -29,15 +28,15 @@ const Header = () => {
           <div className="flex items-center">
             <div className="hidden md:block ml-auto">
               <div className="flex items-baseline space-x-4">
-                <a href="/" className="text-sm font-semibold navtext pe-[40px]">
+                <NavLink to="/" className="text-sm font-semibold navtext pe-[40px]">
                   Home
-                </a>
-                <a
-                  href="/dashboard"
+                </NavLink>
+                <NavLink
+                  to="/dashboard"
                   className="text-sm font-semibold navtext pe-[40px]"
                 >
                   Dashboard
-                </a>
+                </NavLink>
 
                 {user ? (
                   <>
@@ -119,18 +118,18 @@ const Header = () => {
       {isOpen && (
         <div className="md:hidden" id="mobile-menu">
           <div className="px-4 pt-8 pb-3 space-y-1 sm:px-3">
-            <a href="/" className="text-sm font-semibold navtext block mb-5">
+            <NavLink to="/" className="text-sm font-semibold navtext block mb-5">
               Home
-            </a>
-            <a
-              href="/dashboard"
+            </NavLink>
+            <NavLink
+              to="/dashboard"
               className="text-sm font-semibold navtext block mb-5"
             >
               Dashboard
-            </a>
+            </NavLink>
             {user ? (
               <div className="">
-                <li className="list-none text-sm font-semibold navtext block mt-5">
+                <li className="list-none text-sm font-semibold navtext block mt-5 mb-5 md:mb-0">
                   {user?.displayName}
                 </li>
                 <li className="list-none">

@@ -168,6 +168,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+// import './CheckoutForm.css'
 
 const CheckoutForm = ({ price, name, booking }) => {
   console.log(price, name, booking);
@@ -264,7 +265,7 @@ const CheckoutForm = ({ price, name, booking }) => {
   };
 
   return (
-    <div className="w-1/2 mx-auto">
+    <div className="w-full flex-shrink-0 sm:max-w-lg mx-auto border border-red-500">
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{

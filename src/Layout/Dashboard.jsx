@@ -3,14 +3,7 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { AiFillHome } from "react-icons/ai";
 import {
   FaShoppingCart,
-  FaWallet,
-  FaCalendar,
-  FaSwatchbook,
-  FaBars,
   FaShoppingBag,
-  FaUtensils,
-  FaListUl,
-  FaBook,
   FaUsers,
   FaUserPlus,
   FaPlus,
@@ -25,7 +18,7 @@ const Dashboard = () => {
   const [open, setOpen] = useState(true);
 
   // const isAdmin = true;
-  const [isAdmin]=useAdmin()
+  const [isAdmin] = useAdmin();
 
   // Function to check if the screen width is below a certain breakpoint
   const isSmallScreen = () => window.innerWidth <= 640; // You can adjust the breakpoint as needed
@@ -34,7 +27,7 @@ const Dashboard = () => {
     <section className="flex gap-6">
       <div
         className={`bg-[#F63E7B] ${
-          open ? "w-72" : "w-16"
+          open ? "w-60" : "w-16"
         } duration-500 text-white font-semibold px-4 h-screen`}
       >
         <div className="py-3 flex justify-end">
@@ -49,7 +42,7 @@ const Dashboard = () => {
             {/* Sidebar content here */}
             {isAdmin ? (
               <>
-              <li className="mb-5">
+                <li className="mb-5">
                   <NavLink
                     to="/dashboard/orderList"
                     activeClassName="active-link"

@@ -43,7 +43,7 @@ const AddService = () => {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Menu item added successfully",
+                title: "Service added successfully",
                 showConfirmButton: false,
                 timer: 1500,
               });
